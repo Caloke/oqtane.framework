@@ -128,13 +128,11 @@ namespace Oqtane
             services.AddScoped<ISqlService, SqlService>();
             services.AddScoped<ISystemService, SystemService>();
             services.AddScoped<ILocalizationService, LocalizationService>();
+            services.AddScoped<ILanguageService, LanguageService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddDbContext<MasterDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
-                    .Replace("|DataDirectory|", AppContext.GetData("DataDirectory")?.ToString())
-                ));
+            services.AddDbContext<MasterDBContext>(options => { });
             services.AddDbContext<TenantDBContext>(options => { });
 
             services.AddIdentityCore<IdentityUser>(options => { })
@@ -213,6 +211,7 @@ namespace Oqtane
             services.AddTransient<ISiteTemplateRepository, SiteTemplateRepository>();
             services.AddTransient<ISqlRepository, SqlRepository>();
             services.AddTransient<IUpgradeManager, UpgradeManager>();
+            services.AddTransient<ILanguageRepository, LanguageRepository>();
 
             // load the external assemblies into the app domain, install services 
             services.AddOqtane(_runtime, _supportedCultures);
