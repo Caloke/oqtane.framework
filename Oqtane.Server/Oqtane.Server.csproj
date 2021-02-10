@@ -16,6 +16,7 @@
     <PackageReleaseNotes>https://github.com/oqtane/oqtane.framework/releases/tag/v2.0.0</PackageReleaseNotes>
     <RootNamespace>Oqtane</RootNamespace>
     <IsPackable>true</IsPackable>
+    <UserSecretsId>dbaf16c1-0284-4dd2-aa99-7bec88bca2b4</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="wwwroot\Modules\Templates\**" />
@@ -40,15 +41,16 @@
     <EmbeddedResource Include="Modules\HtmlText\Scripts\HtmlText.Uninstall.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="dbup" Version="4.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="dbup" Version="4.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Oqtane.Client\Oqtane.Client.csproj" />
@@ -61,6 +63,11 @@
     <UpgradeFiles Include="$(ProjectDir)bin\Release\net5.0\Oqtane.Upgrade.pdb" />
     <UpgradeFiles Include="$(ProjectDir)bin\Release\net5.0\Oqtane.Upgrade.runtimeconfig.json" />
     <TemplateFiles Include="$(ProjectDir)wwwroot\Modules\Templates\**\*.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="AddPayloadsFolder" AfterTargets="Publish">
     <Copy SourceFiles="@(UpgradeFiles)" DestinationFiles="@(UpgradeFiles->'$(PublishDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="false" />

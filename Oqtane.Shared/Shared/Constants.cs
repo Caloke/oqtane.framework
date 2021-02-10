@@ -11,9 +11,9 @@ namespace Oqtane.Shared {
         public const string PageComponent = "Oqtane.UI.ThemeBuilder, Oqtane.Client";
         public const string ContainerComponent = "Oqtane.UI.ContainerBuilder, Oqtane.Client";
 
-        public const string DefaultTheme = "Oqtane.Themes.OqtaneTheme.Default, Oqtane.Client";
-        public const string DefaultLayout = "Oqtane.Themes.OqtaneTheme.SinglePane, Oqtane.Client";
-        public const string DefaultContainer = "Oqtane.Themes.OqtaneTheme.Container, Oqtane.Client";
+        public const string DefaultTheme = "Oqtane.Themes.BlazorTheme.Default, Oqtane.Client";
+        public const string DefaultLayout = "Oqtane.Themes.BlazorTheme.SinglePane, Oqtane.Client";
+        public const string DefaultContainer = "Oqtane.Themes.BlazorTheme.Container, Oqtane.Client";
         public const string DefaultAdminContainer = "Oqtane.Themes.AdminContainer, Oqtane.Client";
 
         public const string ActionToken = "{Action}";
@@ -33,7 +33,7 @@ namespace Oqtane.Shared {
         public const string ErrorModule = "Oqtane.Modules.Admin.Error.{Action}, Oqtane.Client";
         public const string ModuleMessageComponent = "Oqtane.Modules.Controls.ModuleMessage, Oqtane.Client";
 
-        public const string DefaultSiteTemplate = "Oqtane.SiteTemplates.DefaultSiteTemplate, Oqtane.Server";
+        public const string DefaultSiteTemplate = "Oqtane.SiteTemplates.EmptySiteTemplate, Oqtane.Server";
 
         public const string ContentUrl = "/api/file/download/";
 
