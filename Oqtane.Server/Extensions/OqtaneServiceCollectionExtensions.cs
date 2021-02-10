@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Linq;
 using Oqtane.Infrastructure;
 using Oqtane.Modules;
 using Oqtane.Services;
@@ -76,7 +78,22 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static void LoadAssemblies()
         {
-            var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+            var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location); ;
+
+            //Get the json file and read the service port no if available in the json file.
+            string AppJsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
+            if (File.Exists(AppJsonFilePath))
+            {
+                using (StreamReader sr = new StreamReader(AppJsonFilePath))
+                {
+                    string jsonData = sr.ReadToEnd();
+                    JObject jObject = JObject.Parse(jsonData);
+                    if (jObject["Repository"] != null)
+                        assemblyPath = jObject["Repository"].ToString();
+
+                }
+            }
+
             if (assemblyPath == null) return;
 
             AssemblyLoadContext.Default.Resolving += ResolveDependencies;
