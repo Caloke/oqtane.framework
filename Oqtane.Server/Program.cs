@@ -55,6 +55,9 @@ namespace Oqtane.Server
 
                 var host = WebHost.CreateDefaultBuilder(args)
                 .UseContentRoot(pathToContentRoot)
+                .UseConfiguration(new ConfigurationBuilder()
+                    .AddCommandLine(args)
+                    .Build())
                 .UseStartup<Startup>()
                 .UseUrls("http://*:" + portNo)
                 .ConfigureLocalizationSettings()

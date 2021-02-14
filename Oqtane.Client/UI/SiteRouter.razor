@@ -240,7 +240,7 @@
             // failsafe in case router cannot locate the home page for the site
             if (page == null && path == "")
             {
-                page = pages.FirstOrDefault();
+                page = pages.Where(item => item.Name == "Login").FirstOrDefault();
                 path = page.Path;
             }
 

@@ -31,6 +31,7 @@ namespace Oqtane
         private bool _useSwagger;
         private IWebHostEnvironment _env;
         private string[] _supportedCultures;
+        private string _Repository;
 
         public IConfigurationRoot Configuration { get; }
 
@@ -43,6 +44,8 @@ namespace Oqtane
 
             _supportedCultures = localizationManager.GetSupportedCultures();
 
+            _Repository = Configuration.GetSection("Repository").Value;
+            Oqtane.Models.Repository.AssemblyPath = _Repository;
             _runtime = (Configuration.GetSection("Runtime").Value == "WebAssembly") ? Runtime.WebAssembly : Runtime.Server;
 
             //add possibility to switch off swagger on production.

@@ -15,7 +15,7 @@ using Oqtane.Shared;
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class OqtaneServiceCollectionExtensions
-    {
+    {        
         public static IServiceCollection AddOqtane(this IServiceCollection services, Runtime runtime, string[] supportedCultures)
         {
             LoadAssemblies();
@@ -24,7 +24,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return services;
         }
-
         private static IServiceCollection AddOqtaneServices(this IServiceCollection services, Runtime runtime)
         {
             if (services is null)
@@ -78,21 +77,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static void LoadAssemblies()
         {
-            var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location); ;
-
-            //Get the json file and read the service port no if available in the json file.
-            string AppJsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
-            if (File.Exists(AppJsonFilePath))
-            {
-                using (StreamReader sr = new StreamReader(AppJsonFilePath))
-                {
-                    string jsonData = sr.ReadToEnd();
-                    JObject jObject = JObject.Parse(jsonData);
-                    if (jObject["Repository"] != null)
-                        assemblyPath = jObject["Repository"].ToString();
-
-                }
-            }
+            var assemblyPath = Oqtane.Models.Repository.AssemblyPath ?? Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
 
             if (assemblyPath == null) return;
 
@@ -144,7 +129,7 @@ namespace Microsoft.Extensions.DependencyInjection
         private static void LoadSatelliteAssemblies(string[] supportedCultures)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+            var assemblyPath = Oqtane.Models.Repository.AssemblyPath ?? Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
             if (assemblyPath == null)
             {
                 return;
@@ -194,8 +179,9 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         private static Assembly ResolveDependencies(AssemblyLoadContext context, AssemblyName name)
-        {
-            var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) + "\\" + name.Name + ".dll";
+        {   
+            var assemblyPath = Oqtane.Models.Repository.AssemblyPath ?? Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location);
+            assemblyPath = assemblyPath + "\\" + name.Name + ".dll";
             if (File.Exists(assemblyPath))
             {
                 return context.LoadFromStream(new MemoryStream(File.ReadAllBytes(assemblyPath)));
